@@ -1,5 +1,4 @@
 import random
-from signal import NSIG
 
 Team1 = [0.02,0.02,0.03,0.04,0.04,0.05,0.06,0.07,0.09,0.10,0.12,0.13,0.76] # home team
 team1XG  = sum(Team1)
@@ -10,11 +9,14 @@ team2XG  = sum(Team2)
 # print(team2XG)
 
 
+N_SIMULATIONS  = 100000 # number of simulations
+PRECISION = 1000
+
 def scorecount(team):
 
     goals = 0
     for i in team:
-        rand = random.randint(1,1000)/1000
+        rand = random.randint(1,PRECISION)/PRECISION
 
         if rand < i:
             goals +=1
@@ -22,7 +24,7 @@ def scorecount(team):
     return goals
 
 
-N_SIMULATIONS  = 100000 # number of simulations
+
 def play(N_SIMULATIONS):
 
     homewins = 0
