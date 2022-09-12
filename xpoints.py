@@ -72,6 +72,9 @@ def xpoints(Team1, Team2,N_SIMULATIONS):
 
 
 def deviation(Team1, Team2):
+    #standard deviation on the quality of chances each team creates
+    #another useful factor might be the standard deviation of the goals scored by each team which is
+    #taken into account in the xG model
     shots_team_1 = len(Team1)
     shots_team_2 = len(Team2)
     meanTeam1 = team1XG/shots_team_1
@@ -97,7 +100,8 @@ sdcoin, sddice = deviation(team_coin, team_dice)
 print(f'Coin: {coinXG} +- {sdcoin}, Dice:{diceXG} +- {sddice}')
 print(f'Coin: {coinXP}, Dice:{diceXP}')
 
-#calculate expected points after standard deviation
+#calculate expected points after standard deviation of number of goals each team can score
+#test this with understat.com data
 
 
 
