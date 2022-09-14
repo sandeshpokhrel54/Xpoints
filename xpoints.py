@@ -16,6 +16,15 @@ team_dice = [0.167,0.167,0.167,0.167,0.167,0.167,0.167,0.167,0.167,0.167,0.167,0
 diceXG = sum(team_dice)
 
 
+#checking with understats value chelsea vs westham
+chelsea = [0.01, 0.03, 0.02, 0.02, 0.07, 0.10, 0.12, 0.34]
+chelseaXG = sum(chelsea)
+
+westham = [0.03, 0.08, 0.03, 0.94, 0.33]
+westhamXG = sum(westham)
+
+
+
 N_SIMULATIONS  = 1000 # number of simulations
 PRECISION = 1000
 
@@ -71,10 +80,10 @@ def xpoints(Team1, Team2,N_SIMULATIONS):
     return xpointsHome, xpointsAway
 
 
+#standard deviation on the quality of chances each team creates
+#another useful factor might be the standard deviation of the goals scored by each team which is
+#taken into account in the xG model
 def deviation(Team1, Team2):
-    #standard deviation on the quality of chances each team creates
-    #another useful factor might be the standard deviation of the goals scored by each team which is
-    #taken into account in the xG model
     shots_team_1 = len(Team1)
     shots_team_2 = len(Team2)
     meanTeam1 = team1XG/shots_team_1
@@ -85,9 +94,6 @@ def deviation(Team1, Team2):
     return sdteam1,sdteam2
 
 # homewins,draws,awaywins = play(N_SIMULATIONS)
-
-
-
 
 home_expected_points, away_expected_points = xpoints(Team1, Team2, N_SIMULATIONS)
 sdteam1, sdteam2 = deviation(Team1, Team2)
@@ -100,8 +106,15 @@ sdcoin, sddice = deviation(team_coin, team_dice)
 print(f'Coin: {coinXG} +- {sdcoin}, Dice:{diceXG} +- {sddice}')
 print(f'Coin: {coinXP}, Dice:{diceXP}')
 
+
+#to compare understat's xp and the one i calculated
+chelseaXP, westhamXP = xpoints(chelsea, westham, N_SIMULATIONS)
+sdchelsea, sdwestham = deviation(chelsea, westham)
+
+print(f'Chelsea: {chelseaXG} +- {sdchelsea}, Dice:{westhamXG} +- {sdwestham}')
+print(f'Chelsea: {chelseaXP}, Dice:{westhamXP}')
 #calculate expected points after standard deviation of number of goals each team can score
-#test this with understat.com data
+
 
 
 
