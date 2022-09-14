@@ -1,3 +1,5 @@
 # Xpoints
 Exploring XGphilosophy.
-- simulate including standard deviation
+- use understat data live
+- a bot to tweet xpoints after each game
+
