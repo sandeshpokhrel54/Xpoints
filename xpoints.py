@@ -25,7 +25,7 @@ westhamXG = sum(westham)
 
 
 
-N_SIMULATIONS  = 1000 # number of simulations
+N_SIMULATIONS  = 100000 # number of simulations
 PRECISION = 1000
 
 def scorecount(team):
