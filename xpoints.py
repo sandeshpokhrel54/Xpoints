@@ -1,6 +1,5 @@
 import random
 
-
 Team1 = [0.02,0.02,0.03,0.04,0.04,0.05,0.06,0.07,0.09,0.10,0.12,0.13,0.76] # home team
 team1XG  = sum(Team1)
 # print(team1XG)
@@ -25,7 +24,7 @@ westhamXG = sum(westham)
 
 
 
-N_SIMULATIONS  = 100000 # number of simulations
+N_SIMULATIONS  = 1000 # number of simulations
 PRECISION = 1000
 
 def scorecount(team):
@@ -38,7 +37,6 @@ def scorecount(team):
             goals +=1
 
     return goals
-
 
 
 def play(Team1, Team2, N_SIMULATIONS):
@@ -93,26 +91,28 @@ def deviation(Team1, Team2):
     sdteam2 = round((sum((i-meanTeam2)**2 for i in Team2)/shots_team_2)**0.5,3)
     return sdteam1,sdteam2
 
-# homewins,draws,awaywins = play(N_SIMULATIONS)
+def deviationGoals(Team1, Team2):
+    #number of shots each team takes is the most number of goals they can score
+    #0 is the least number of goals the team can score
+    #so, find standard deviation of numbers from 0 to number of shots taken for each team
+    
+    pass
 
-home_expected_points, away_expected_points = xpoints(Team1, Team2, N_SIMULATIONS)
-sdteam1, sdteam2 = deviation(Team1, Team2)
+def calcXPoints(Team1, Team2, N_SIMULATIONS):
+    xpointsHome, xpointsAway = xpoints(Team1, Team2,N_SIMULATIONS)
+    sdteam1,sdteam2 = deviation(Team1, Team2)
+    print(f'Home Team: {sum(Team1)} +- {sdteam1}, Away Team:{sum(Team2)} +- {sdteam2}')
+    print(f'Home Team: {xpointsHome}, Away Team:{xpointsAway}')
 
-print(f'Home Team: {team1XG} +- {sdteam1}, Away Team:{team2XG} +- {sdteam2}')
-print(f'Home Team: {home_expected_points}, Away Team:{away_expected_points}')
+    return xpointsHome, xpointsAway, sdteam1, sdteam2
 
-coinXP, diceXP = xpoints(team_coin, team_dice, N_SIMULATIONS)
-sdcoin, sddice = deviation(team_coin, team_dice)
-print(f'Coin: {coinXG} +- {sdcoin}, Dice:{diceXG} +- {sddice}')
-print(f'Coin: {coinXP}, Dice:{diceXP}')
 
+homexp, awayexp, sdteam1, sdteam2 = calcXPoints(Team1, Team2, N_SIMULATIONS)
+coinxp, dicexp, sdteam1, sdteam2 = calcXPoints(team_coin, team_dice, N_SIMULATIONS)
 
 #to compare understat's xp and the one i calculated
-chelseaXP, westhamXP = xpoints(chelsea, westham, N_SIMULATIONS)
-sdchelsea, sdwestham = deviation(chelsea, westham)
+chelseaxp, westhamxp, sdteam1, sdteam2 = calcXPoints(chelsea, westham, N_SIMULATIONS)
 
-print(f'Chelsea: {chelseaXG} +- {sdchelsea}, Dice:{westhamXG} +- {sdwestham}')
-print(f'Chelsea: {chelseaXP}, Dice:{westhamXP}')
 #calculate expected points after standard deviation of number of goals each team can score
 
 
