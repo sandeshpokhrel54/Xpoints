@@ -24,7 +24,7 @@ westhamXG = sum(westham)
 
 
 
-N_SIMULATIONS  = 1000 # number of simulations
+N_SIMULATIONS  = 10000 # number of simulations
 PRECISION = 1000
 
 def scorecount(team):
@@ -84,19 +84,23 @@ def xpoints(Team1, Team2,N_SIMULATIONS):
 def deviation(Team1, Team2):
     shots_team_1 = len(Team1)
     shots_team_2 = len(Team2)
-    meanTeam1 = team1XG/shots_team_1
-    meanTeam2 = team2XG/shots_team_2
+    meanTeam1 = sum(Team1)/shots_team_1
+    meanTeam2 = sum(Team2)/shots_team_2
 
     sdteam1 = round((sum((i-meanTeam1)**2 for i in Team1)/shots_team_1)**0.5,3)
     sdteam2 = round((sum((i-meanTeam2)**2 for i in Team2)/shots_team_2)**0.5,3)
     return sdteam1,sdteam2
 
-def deviationGoals(Team1, Team2):
-    #number of shots each team takes is the most number of goals they can score
-    #0 is the least number of goals the team can score
-    #so, find standard deviation of numbers from 0 to number of shots taken for each team
-    
-    pass
+# def deviationGoals(Team1, Team2):
+#     #number of shots each team takes is the most number of goals they can score
+#     #0 is the least number of goals the team can score
+#     #so, find standard deviation of numbers from 0 to number of shots taken for each team
+#     n1 = len(Team1)
+#     n2 = len(Team2)
+#     sdteam1 = ((n1*n1 + 2*n1)/12)**0.5
+#     sdteam2 = ((n2*n2 + 2*n2)/12)**0.5
+#     return sdteam1, sdteam2
+
 
 def calcXPoints(Team1, Team2, N_SIMULATIONS):
     xpointsHome, xpointsAway = xpoints(Team1, Team2,N_SIMULATIONS)
@@ -107,14 +111,15 @@ def calcXPoints(Team1, Team2, N_SIMULATIONS):
     return xpointsHome, xpointsAway, sdteam1, sdteam2
 
 
-homexp, awayexp, sdteam1, sdteam2 = calcXPoints(Team1, Team2, N_SIMULATIONS)
+# homexp, awayexp, sdteam1, sdteam2 = calcXPoints(Team1, Team2, N_SIMULATIONS)
 coinxp, dicexp, sdteam1, sdteam2 = calcXPoints(team_coin, team_dice, N_SIMULATIONS)
 
 #to compare understat's xp and the one i calculated
-chelseaxp, westhamxp, sdteam1, sdteam2 = calcXPoints(chelsea, westham, N_SIMULATIONS)
+# chelseaxp, westhamxp, sdteam1, sdteam2 = calcXPoints(chelsea, westham, N_SIMULATIONS)
 
 #calculate expected points after standard deviation of number of goals each team can score
 
+#expected goals not added but conditionally added(in cases of chances coming off of rebounds)? danny page medium
 
 
 
