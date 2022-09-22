@@ -1,5 +1,5 @@
 # Xpoints
 Exploring XGphilosophy.
-- use understat data live
+- use understat data
 - a bot to tweet xpoints after each game
 
