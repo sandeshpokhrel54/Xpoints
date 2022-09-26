@@ -1,26 +1,5 @@
 import random
 
-Team1 = [0.02,0.02,0.03,0.04,0.04,0.05,0.06,0.07,0.09,0.10,0.12,0.13,0.76] # home team
-team1XG  = sum(Team1)
-
-Team2 = [0.01,0.02,0.02,0.02,0.03,0.05,0.05,0.05,0.06,0.22,0.30,0.43,0.48,0.63] #away team
-team2XG  = sum(Team2)
-
-team_coin = [0.5,0.5,0.5,0.5]
-coinXG = sum(team_coin)
-
-team_dice = [0.167,0.167,0.167,0.167,0.167,0.167,0.167,0.167,0.167,0.167,0.167,0.167]
-diceXG = sum(team_dice)
-
-
-#checking with understats value chelsea vs westham
-chelsea = [0.01, 0.03, 0.02, 0.02, 0.07, 0.10, 0.12, 0.34]
-chelseaXG = sum(chelsea)
-
-westham = [0.03, 0.08, 0.03, 0.94, 0.33]
-westhamXG = sum(westham)
-
-
 N_SIMULATIONS  = 100000 # number of simulations
 PRECISION = 1000
 
@@ -36,7 +15,7 @@ def scorecount(team):
     return goals
 
 
-def play(Team1, Team2, N_SIMULATIONS):
+def play(Team1, Team2, N_SIMULATIONS=1000):
 
     homewins = 0
     awaywins = 0
@@ -92,7 +71,7 @@ def deviationGoals(team1_goal_counts, team2_goal_counts):
     return sdteam1, sdteam2
 
 
-def xpoints(Team1, Team2,N_SIMULATIONS):
+def xpoints(Team1, Team2,N_SIMULATIONS=1000):
     
     homewins, draws, awaywins, home_goals_count, away_goals_count  = play(Team1, Team2,N_SIMULATIONS)
     
@@ -113,7 +92,7 @@ def xpoints(Team1, Team2,N_SIMULATIONS):
     return xpointsHome, xpointsAway, team1dev, team2dev
 
 
-def calcXPoints(Team1, Team2, N_SIMULATIONS):
+def calcXPoints(Team1, Team2, N_SIMULATIONS=1000):
     xpointsHome, xpointsAway, team1dev, team2dev = xpoints(Team1, Team2,N_SIMULATIONS)
     # sdteam1,sdteam2 = deviation(Team1, Team2)
     print(f'Home Team: {sum(Team1)} +- {team1dev}, Away Team:{sum(Team2)} +- {team2dev}')
@@ -123,11 +102,31 @@ def calcXPoints(Team1, Team2, N_SIMULATIONS):
     return xpointsHome, xpointsAway, team1dev, team2dev
 
 
-homexp, awayexp, sdteam1, sdteam2 = calcXPoints(Team1, Team2, N_SIMULATIONS)
-coinxp, dicexp, sdteam1, sdteam2 = calcXPoints(team_coin, team_dice, N_SIMULATIONS)
+if __name__== '__main__':
 
-#to compare understat's xp and the one i calculated
-chelseaxp, westhamxp, sdteam1, sdteam2 = calcXPoints(chelsea, westham, N_SIMULATIONS)
+    #TEST DATA
+    Team1 = [0.02,0.02,0.03,0.04,0.04,0.05,0.06,0.07,0.09,0.10,0.12,0.13,0.76] # home team
+    team1XG  = sum(Team1)
+    Team2 = [0.01,0.02,0.02,0.02,0.03,0.05,0.05,0.05,0.06,0.22,0.30,0.43,0.48,0.63] #away team
+    team2XG  = sum(Team2)
+
+    team_coin = [0.5,0.5,0.5,0.5]
+    coinXG = sum(team_coin)
+    team_dice = [0.167,0.167,0.167,0.167,0.167,0.167,0.167,0.167,0.167,0.167,0.167,0.167]
+    diceXG = sum(team_dice)
+
+    #checking with understats value chelsea vs westham
+    chelsea = [0.01, 0.03, 0.02, 0.02, 0.07, 0.10, 0.12, 0.34]
+    chelseaXG = sum(chelsea)
+    westham = [0.03, 0.08, 0.03, 0.94, 0.33]
+    westhamXG = sum(westham)
+
+    #RUN TESTS
+    homexp, awayexp, sdteam1, sdteam2 = calcXPoints(Team1, Team2, N_SIMULATIONS)
+    coinxp, dicexp, sdteam1, sdteam2 = calcXPoints(team_coin, team_dice, N_SIMULATIONS)
+
+    #to compare understat's xp and the one i calculated
+    chelseaxp, westhamxp, sdteam1, sdteam2 = calcXPoints(chelsea, westham, N_SIMULATIONS)
 
 #expected goals not added but conditionally added(in cases of chances coming off of rebounds)? danny page medium
 

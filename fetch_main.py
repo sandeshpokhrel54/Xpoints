@@ -4,7 +4,7 @@ import platform
 import aiohttp
 
 from understat import Understat
-
+from xpoints import calcXPoints
 
 ''' league = epl, laliga, etc...
     season = 2021, 2020, etc...
@@ -32,6 +32,28 @@ async def get_match_shots(match_id):
         data = await understat.get_match_shots(match_id)
         return data
 
+
+def get_shots_by_game_dict(results) ->dict:
+    allGames = {}
+    for game in results:
+        print(game['h']['title'],game['goals']['h'], game['xG']['h'], game['a']['title'], game['goals']['a'] , game['xG']['a'])
+        shots = loop.run_until_complete(get_match_shots(game['id']))
+        
+        home_shots = []
+        away_shots = []
+        for  shot in shots['h']:
+            home_shots.append(shot['xG'])
+            # print("Home shots: ", shot['xG'])
+        for shot in shots['a']:
+            away_shots.append(shot['xG'])
+            # print("Away shots: ", shot['xG'])
+        
+        allGames[game['id']] = [home_shots, away_shots]
+        # print(list(allGames.keys())) #xgs of each shot, for each game for home and away team
+
+        print()
+    return allGames
+
 if __name__ == "__main__":
     loop = asyncio.new_event_loop()
 
@@ -47,21 +69,13 @@ if __name__ == "__main__":
 
     # print(results)
 
-    allGames = {}
-    for game in results:
-        print(game['h']['title'],game['goals']['h'], game['xG']['h'], game['a']['title'], game['goals']['a'] , game['xG']['a'])
-        shots = loop.run_until_complete(get_match_shots(game['id']))
-        
-        home_shots = []
-        away_shots = []
-        for  shot in shots['h']:
-            home_shots.append(shot['xG'])
-            print("Home shots: ", shot['xG'])
-        for shot in shots['a']:
-            away_shots.append(shot['xG'])
-            print("Away shots: ", shot['xG'])
-        
-        allGames[game['id']] = [home_shots, away_shots]
-        print(allGames) #xgs of each shot, for each game for home and away team
+    allGames = get_shots_by_game_dict(results)
+    # print(allGames.keys())
 
+    for k,values in allGames.items():
+        flo_value_0 = [float(i) for i in values[0]]
+        flo_value_1 = [float(i) for i in values[1]]
+        homexp, awayxp, homesd, awaysd = calcXPoints(flo_value_0, flo_value_1)
+        # print(k,homexp, homesd, awayxp, awaysd)
         print()
+
