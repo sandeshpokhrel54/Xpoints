@@ -4,7 +4,7 @@ Exploring XGphilosophy, some basic implementations using data from understat.com
 Test it on your favourite team(limited to epl for now):
 - Clone the repo
 - install requirements
-- python fetch_main.py <team_name> <sesason>
+- python fetch_main.py *team_name*  *season*  
 
 TODO:
 - for all leagues
