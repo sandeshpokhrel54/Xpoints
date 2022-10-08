@@ -95,13 +95,14 @@ def xpoints(Team1, Team2,N_SIMULATIONS=1000):
 def calcXPoints(Team1, Team2, N_SIMULATIONS=1000):
     xpointsHome, xpointsAway, team1dev, team2dev = xpoints(Team1, Team2,N_SIMULATIONS)
     # sdteam1,sdteam2 = deviation(Team1, Team2)
-    print(f'Home Team: {sum(Team1)} +- {team1dev}, Away Team:{sum(Team2)} +- {team2dev}')
-    print(f'Home Team: {xpointsHome}, Away Team:{xpointsAway}')
+    # print(f'Home Team: {sum(Team1)} +- {team1dev}, Away Team:{sum(Team2)} +- {team2dev}')
+    # print(f'Home Team: {xpointsHome}, Away Team:{xpointsAway}')
     # print(f'psst Dev team1: {team1dev}, psst Dev team2:{team2dev}')
 
     return xpointsHome, xpointsAway, team1dev, team2dev
 
 
+#test
 if __name__== '__main__':
 
     #TEST DATA
