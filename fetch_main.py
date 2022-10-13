@@ -6,6 +6,7 @@ import aiohttp
 from understat import Understat
 from xpoints import calcXPoints
 
+import argparse
 import sys
 
 ''' league = epl, laliga, etc...
@@ -64,35 +65,15 @@ if __name__ == "__main__":
     
     asyncio.set_event_loop(loop)
     # team_stats = loop.run_until_complete(get_stats("epl", "2022", "Chelsea"))
-    # for player in team_stats:
-    #     print(player['id'], player['player_name'])
-    #     print()
-    # print(len(sys.argv)) #number of arguments
-    if(len(sys.argv) == 3):
-        team_name = sys.argv[1].lower()
-        team_name[0].capitalize()
-        season = sys.argv[2]
-        results = loop.run_until_complete(team_results(team_name,season))
-    elif(len(sys.argv)==2):
-        team_name = sys.argv[1].lower()
-        team_name[0].capitalize()
-        results = loop.run_until_complete(team_results(team_name, "2022")) #2022 by default
-    elif(len(sys.argv)==1):
-        results = loop.run_until_complete(team_results("Chelsea", "2022"))
-    elif(len(sys.argv)==4):
-        team_name = sys.argv[1].lower()
-        team_name[0].capitalize()
-        team_name2 = sys.argv[2].lower()
-        team_name2[0].capitalize()
-        team_name = team_name+" "+ team_name2
-        season = sys.argv[3]
-        results = loop.run_until_complete(team_results(team_name,season))
-    else:
-        print("Please enter team name and season")
-        exit(-1)
 
-    # print(results)
+    ap = argparse.ArgumentParser()
+    ap.add_argument("-s", "--season", default="2022", help="season")
+    ap.add_argument("-t", "--team", default="Chelsea", help="team name")
+    args = vars(ap.parse_args())
 
+
+    
+    results = loop.run_until_complete(team_results(team_name=args['team'], season=args['season']))
     allGames = get_shots_by_game_dict(results)
     for k,v in allGames[1].items():
         values = v[-1] #last element in list is the list of shots
