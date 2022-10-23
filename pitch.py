@@ -6,6 +6,33 @@ Created on Wed Mar 25 17:32:00 2020
 import matplotlib.pyplot as plt
 from matplotlib.patches import Arc
 
+
+
+
+def plotShots(team, shots):
+    #team home or away
+    #shots [[xG, X, Y, result],[xg, x, y, result],...]
+
+    pitch_width = 80
+    pitch_height = 120
+    fig,ax = createPitch(pitch_height, pitch_width, 'yards', 'gray')
+    
+    
+    for shot in shots:
+        x = shot[1]
+        y = shot[2]
+
+        #scale normalized shots to pitch size
+        x = x * pitch_height
+        y = y * pitch_width
+        xg = shot[0]
+
+        circle_size = xg*12
+        shotCircle = plt.Circle((x, y), circle_size, color='red')
+        ax.add_patch(shotCircle)
+    plt.show()
+
+
 def createPitch(length,width, unity, linecolor): # in meters
     # Code by @JPJ_dejong
     """
@@ -190,7 +217,8 @@ def createGoalMouth():
 
 
 if __name__ == '__main__':
-    fig = createPitch(100,75,'meters','black')
+    # fig = createPitch(100,75,'meters','black')
+    fig,ax = plotShots('home',[[0.1, 0.6, 0.4, 'missed']])
     plt.show()
     # mouth = createGoalMouth()
     # plt.show()

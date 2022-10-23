@@ -7,7 +7,7 @@ Test it on your desired team(EPL, La Liga, Ligue 1, Bundesliga, Seria A, RFPL ):
 - Clone the repo
 - install requirements
 - python fetch_main.py --t *team_name* --s *season*
-    - Eg. fetch_main.py --t "Chelsea" --s "2022"
+    - Eg. python fetch_main.py --t "Chelsea" --s "2022"
 
 TODO:
 - currently fetches and calculates for all the games of a particular season; try for latest matchweek of all teams

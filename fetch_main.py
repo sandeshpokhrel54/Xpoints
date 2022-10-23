@@ -46,10 +46,10 @@ def get_shots_by_game_dict(results):
         home_shots = []
         away_shots = []
         for  shot in shots['h']:
-            home_shots.append(shot['xG'])
+            home_shots.append([shot['xG'], shot['X'], shot['Y'], shot['result']])
             # print("Home shots: ", shot['xG'])
         for shot in shots['a']:
-            away_shots.append(shot['xG'])
+            away_shots.append([shot['xG'], shot['X'], shot['Y'], shot['result']])
             # print("Away shots: ", shot['xG'])
         
         allGames[game['id']] = [home_shots, away_shots] #dict with key game id and value list of home and away shots
@@ -75,12 +75,18 @@ if __name__ == "__main__":
     
     results = loop.run_until_complete(team_results(team_name=args['team'], season=args['season']))
     allGames = get_shots_by_game_dict(results)
-    for k,v in allGames[1].items():
-        values = v[-1] #last element in list is the list of shots
+    # print(allGames)
+    for k,v in allGames[1].items(): #allGamesinfo
 
+        values = v[-1] #last element in list is the list of shots home and away shots
+        home_shots = values[0]
+        away_shots = values[1]
+
+        home_xg = [home_shot[0] for home_shot in home_shots]
+        away_xg = [away_shot[0] for away_shot in away_shots]
         #converting values to float
-        flo_value_0 = [float(i) for i in values[0]]
-        flo_value_1 = [float(i) for i in values[1]]
+        flo_value_0 = [float(i) for i in home_xg] 
+        flo_value_1 = [float(i) for i in away_xg]
 
         #calculate xps and deviation of xgs
         homexp, awayxp, homesd, awaysd = calcXPoints(flo_value_0, flo_value_1)
