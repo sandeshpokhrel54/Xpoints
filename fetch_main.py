@@ -8,6 +8,7 @@ from xpoints import calcXPoints
 
 import argparse
 import sys
+from pitch import plotShots
 
 ''' league = epl, laliga, etc...
     season = 2021, 2020, etc...
@@ -79,6 +80,10 @@ if __name__ == "__main__":
     for k,v in allGames[1].items(): #allGamesinfo
 
         values = v[-1] #last element in list is the list of shots home and away shots
+        
+        latest_game = k
+        latest_game_shots = values
+        
         home_shots = values[0]
         away_shots = values[1]
 
@@ -95,4 +100,7 @@ if __name__ == "__main__":
         print("Home xP: ", homexp, "   Away xP: ", awayxp)
         # print(k,homexp, homesd, awayxp, awaysd)
         print()
+    
+    #plot shots of latest game
+    fig,ax = plotShots(latest_game_shots, latest_game)
 

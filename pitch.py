@@ -9,29 +9,40 @@ from matplotlib.patches import Arc
 
 
 
-def plotShots(team, shots):
-    #team home or away
-    #shots [[xG, X, Y, result],[xg, x, y, result],...]
+def plotShots(shots, game='unknown'):
+
+    #shots [ home->[[xG, X, Y, result],[xg, x, y, result]], away->[[shot1],[shot2]]]
 
     pitch_width = 80
     pitch_height = 120
     fig,ax = createPitch(pitch_height, pitch_width, 'yards', 'gray')
-    
-    
-    for shot in shots:
-        x = shot[1]
-        y = shot[2]
+
+    #unsqueeze list
+    home_shots = shots[0]
+    away_shots = shots[1]
+    all_shots = home_shots + away_shots
+
+    for shot in all_shots:
+        # print(shot)
+        x = float(shot[1])
+        y = float(shot[2])
 
         #scale normalized shots to pitch size
         x = x * pitch_height
         y = y * pitch_width
         xg = shot[0]
 
-        circle_size = xg*12
-        shotCircle = plt.Circle((x, y), circle_size, color='red')
+        circle_size = float(xg)*5
+
+        shot_color = 'red' if shot[3] == 'Goal' else 'blue'
+        opacity = 1 if shot[3] == 'Goal' else 0.7
+        shotCircle = plt.Circle((x,y), circle_size, alpha= opacity, color=shot_color)
         ax.add_patch(shotCircle)
+        
+    ax.set_title(game)
     plt.show()
 
+    return fig,ax
 
 def createPitch(length,width, unity, linecolor): # in meters
     # Code by @JPJ_dejong
@@ -218,7 +229,8 @@ def createGoalMouth():
 
 if __name__ == '__main__':
     # fig = createPitch(100,75,'meters','black')
-    fig,ax = plotShots('home',[[0.1, 0.6, 0.4, 'missed']])
+    fig,ax = plotShots([[[0.1, 0.7, 0.4, 'missed'], [0.4, 0.8, 0.4, 'Goal']], 
+                        [[0.6, 0.1, 0.4, 'Goal'], [0.3, 0.4, 0.4, 'missed']]])
     plt.show()
     # mouth = createGoalMouth()
     # plt.show()
