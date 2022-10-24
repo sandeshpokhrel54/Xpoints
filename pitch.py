@@ -5,7 +5,7 @@ Created on Wed Mar 25 17:32:00 2020
 """
 import matplotlib.pyplot as plt
 from matplotlib.patches import Arc
-
+import math
 
 
 
@@ -15,11 +15,16 @@ def plotShots(shots, game='unknown'):
 
     pitch_width = 80
     pitch_height = 120
-    fig,ax = createPitch(pitch_height, pitch_width, 'yards', 'gray')
+    fig,ax = createPitch(pitch_height, pitch_width, 'yards', 'green')
 
     #unsqueeze list
     home_shots = shots[0]
     away_shots = shots[1]
+
+    for shot in away_shots:
+        shot[1] = 1 - float(shot[1]) #flip x axis
+        shot[2] = 1 - float(shot[2]) #flip y axis
+
     all_shots = home_shots + away_shots
 
     for shot in all_shots:
@@ -32,14 +37,16 @@ def plotShots(shots, game='unknown'):
         y = y * pitch_width
         xg = shot[0]
 
-        circle_size = float(xg)*5
+        circle_size = math.sqrt(float(xg)) * 3
 
         shot_color = 'red' if shot[3] == 'Goal' else 'blue'
         opacity = 1 if shot[3] == 'Goal' else 0.7
+
         shotCircle = plt.Circle((x,y), circle_size, alpha= opacity, color=shot_color)
         ax.add_patch(shotCircle)
         
     ax.set_title(game)
+    fig.set_facecolor('gray')
     plt.show()
 
     return fig,ax
@@ -230,7 +237,7 @@ def createGoalMouth():
 if __name__ == '__main__':
     # fig = createPitch(100,75,'meters','black')
     fig,ax = plotShots([[[0.1, 0.7, 0.4, 'missed'], [0.4, 0.8, 0.4, 'Goal']], 
-                        [[0.6, 0.1, 0.4, 'Goal'], [0.3, 0.4, 0.4, 'missed']]])
+                        [[0.6, 0.7, 0.4, 'Goal'], [0.3, 0.8, 0.4, 'missed']]], 'test-game')
     plt.show()
     # mouth = createGoalMouth()
     # plt.show()
