@@ -10,6 +10,7 @@ Test it on your desired team(EPL, La Liga, Ligue 1, Bundesliga, Seria A, RFPL ):
     - Eg. python fetch_main.py --t "Chelsea" --s "2022"
 
 You also get a plot at the end, of the latest fixture the team played.  
+![Chelsea vs Manchester United](https://github.com/sandeshpokhrel54/Xpoints/blob/main/Xg.png)
 
 
 TODO:
