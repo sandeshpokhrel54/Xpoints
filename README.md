@@ -5,14 +5,14 @@ Exploring *XGphilosophy*, some basic implementations using data from understat.c
 
 Test it on your desired team(EPL, La Liga, Ligue 1, Bundesliga, Seria A, RFPL ):
 - Clone the repo
-    git clone https://github.com/sandeshpokhrel54/Xpoints.git  
+    `git clone https://github.com/sandeshpokhrel54/Xpoints.git  `
     
 - install requirements
-    cd Xpoints  
-    pip install -r requirements.txt  
+    `cd Xpoints 
+    pip install -r requirements.txt  `
     
-- python fetch_main.py --t *team_name* --s *season*  
-    - Eg. python fetch_main.py --t "Chelsea" --s "2022"
+- Run fetch_main.py  
+    - `python fetch_main.py --t "Chelsea" --s "2022" `  
 
 You also get a plot at the end, of the latest fixture the team played.  
 ![Chelsea vs Manchester United](https://github.com/sandeshpokhrel54/Xpoints/blob/main/Xg.png)
