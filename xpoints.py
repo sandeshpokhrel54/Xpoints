@@ -129,7 +129,8 @@ if __name__== '__main__':
     #to compare understat's xp and the one i calculated
     chelseaxp, westhamxp, sdteam1, sdteam2 = calcXPoints(chelsea, westham, N_SIMULATIONS)
 
-#expected goals not added but conditionally added(in cases of chances coming off of rebounds)? danny page medium
+#expected goals not added but conditionally added(in cases of chances coming off of rebounds), this is already incorporated in the xg data we collect,
+#done by the vendors of data
 
 
 
