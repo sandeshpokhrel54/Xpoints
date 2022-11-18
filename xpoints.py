@@ -1,4 +1,5 @@
 import random
+import numpy.random as npr
 
 N_SIMULATIONS  = 100000 # number of simulations
 PRECISION = 1000
@@ -102,6 +103,10 @@ def calcXPoints(Team1, Team2, N_SIMULATIONS=1000):
     return xpointsHome, xpointsAway, team1dev, team2dev
 
 
+def samplefromPoi(lam, N_SIMULATIONS=1000):
+    samples = npr.poisson(lam, N_SIMULATIONS)
+    return samples
+
 #test
 if __name__== '__main__':
 
@@ -123,12 +128,22 @@ if __name__== '__main__':
     westhamXG = sum(westham)
 
     #RUN TESTS
-    homexp, awayexp, sdteam1, sdteam2 = calcXPoints(Team1, Team2, N_SIMULATIONS)
-    coinxp, dicexp, sdteam1, sdteam2 = calcXPoints(team_coin, team_dice, N_SIMULATIONS)
+    # homexp, awayexp, sdteam1, sdteam2 = calcXPoints(Team1, Team2, N_SIMULATIONS)
+    # coinxp, dicexp, sdteam1, sdteam2 = calcXPoints(team_coin, team_dice, N_SIMULATIONS)
 
     #to compare understat's xp and the one i calculated
-    chelseaxp, westhamxp, sdteam1, sdteam2 = calcXPoints(chelsea, westham, N_SIMULATIONS)
+    # chelseaxp, westhamxp, sdteam1, sdteam2 = calcXPoints(chelsea, westham, N_SIMULATIONS)
 
+    #pull simulation from poission distribution
+    team_coin_poi = samplefromPoi(coinXG, 1000)
+    team_dice_poi = samplefromPoi(diceXG, 1000)
+    # print(team_coin_poi, team_dice_poi)
+    coinWins = team_coin_poi > team_dice_poi
+    diceWins = team_dice_poi > team_coin_poi
+    diceWins = diceWins.astype(int)
+    coinWins = coinWins.astype(int)
+    print(sum(coinWins))
+    print(sum(diceWins))
 #expected goals not added but conditionally added(in cases of chances coming off of rebounds), this is already incorporated in the xg data we collect,
 #done by the vendors of data
 
