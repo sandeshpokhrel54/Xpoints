@@ -36,7 +36,7 @@ async def get_match_shots(match_id):
         data = await understat.get_match_shots(match_id)
         return data
 
-
+#parse for my convenience
 def get_shots_by_game_dict(results):
     allGames = {} #for game id and shots only
     allGameinfo = {} #for team names, xgs and shots
@@ -76,7 +76,8 @@ if __name__ == "__main__":
     
     results = loop.run_until_complete(team_results(team_name=args['team'], season=args['season']))
     allGames = get_shots_by_game_dict(results)
-    # print(allGames)
+
+    print(allGames)
     for k,v in allGames[1].items(): #allGamesinfo
 
         values = v[-1] #last element in list is the list of shots home and away shots

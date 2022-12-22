@@ -129,21 +129,39 @@ if __name__== '__main__':
 
     #RUN TESTS
     # homexp, awayexp, sdteam1, sdteam2 = calcXPoints(Team1, Team2, N_SIMULATIONS)
-    # coinxp, dicexp, sdteam1, sdteam2 = calcXPoints(team_coin, team_dice, N_SIMULATIONS)
+    coinxp, dicexp, sdteam1, sdteam2 = calcXPoints(team_coin, team_dice, N_SIMULATIONS)
+    print(coinxp, dicexp)
 
     #to compare understat's xp and the one i calculated
     # chelseaxp, westhamxp, sdteam1, sdteam2 = calcXPoints(chelsea, westham, N_SIMULATIONS)
 
-    #pull simulation from poission distribution
-    team_coin_poi = samplefromPoi(coinXG, 1000)
-    team_dice_poi = samplefromPoi(diceXG, 1000)
+
+
+    #simulation from poission distribution; 
+    #seems close enough but the one from shots is better
+    testsim = 100000
+    team_coin_poi = samplefromPoi(coinXG, testsim)
+    team_dice_poi = samplefromPoi(diceXG, testsim)
     # print(team_coin_poi, team_dice_poi)
     coinWins = team_coin_poi > team_dice_poi
     diceWins = team_dice_poi > team_coin_poi
-    diceWins = diceWins.astype(int)
-    coinWins = coinWins.astype(int)
-    print(sum(coinWins))
-    print(sum(diceWins))
+    diceWins = sum(diceWins.astype(int))
+    coinWins = sum(coinWins.astype(int))
+    Draws = testsim - diceWins - coinWins
+    # print(coinWins)
+    # print(diceWins)
+    # print(Draws)
+    coinxp = 3 * coinWins/testsim + 1 * Draws/testsim
+    dicexp = 3 * diceWins/testsim + 1 * Draws/testsim
+    print(coinxp)
+    print(dicexp)
+
+
+#The sampling of the match scores has been done from Poisson distribution. Is it a fair reflection on match scores if both teams accumulate the same xG values? 
+#assuming a case of golden chances and weak chances, the golden chances win out at least in the case of coin with on average 0.1 xp more.
+#not exactly same but similar
+#the expected points values are far close to each other when win rate are derived from poission distribution rather than game simulation.
+
 #expected goals not added but conditionally added(in cases of chances coming off of rebounds), this is already incorporated in the xg data we collect,
 #done by the vendors of data
 
