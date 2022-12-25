@@ -58,26 +58,9 @@ def get_shots_by_game_dict(results):
         # print()
     return allGames, allGameinfo
 
-if __name__ == "__main__":
-    loop = asyncio.new_event_loop()
 
-    if(platform.system()=='Windows'):
-        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-    
-    asyncio.set_event_loop(loop)
-    # team_stats = loop.run_until_complete(get_stats("epl", "2022", "Chelsea"))
-
-    ap = argparse.ArgumentParser()
-    ap.add_argument("-s", "--season", default="2022", help="season")
-    ap.add_argument("-t", "--team", default="Chelsea", help="team name")
-    args = vars(ap.parse_args())
-
-
-    
-    results = loop.run_until_complete(team_results(team_name=args['team'], season=args['season']))
-    allGames = get_shots_by_game_dict(results)
-
-    print(allGames)
+def parse_all_games(allGames):
+   
     for k,v in allGames[1].items(): #allGamesinfo
 
         values = v[-1] #last element in list is the list of shots home and away shots
@@ -101,7 +84,27 @@ if __name__ == "__main__":
         print("Home xP: ", homexp, "   Away xP: ", awayxp)
         # print(k,homexp, homesd, awayxp, awaysd)
         print()
+    return [latest_game,latest_game_shots, homexp, awayxp, homesd, awaysd]
+
+if __name__ == "__main__":
+    loop = asyncio.new_event_loop()
+
+    if(platform.system()=='Windows'):
+        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
     
+    asyncio.set_event_loop(loop)
+    # team_stats = loop.run_until_complete(get_stats("epl", "2022", "Chelsea"))
+
+    ap = argparse.ArgumentParser()
+    ap.add_argument("-s", "--season", default="2022", help="season")
+    ap.add_argument("-t", "--team", default="Chelsea", help="team name")
+    args = vars(ap.parse_args())
+    
+    results = loop.run_until_complete(team_results(team_name=args['team'], season=args['season']))
+    allGames = get_shots_by_game_dict(results)
+
+    # print(allGames)    
+    latest_game, latest_game_shots, homexp, awayxp, homesd, awaysd  = parse_all_games(allGames)
     #plot shots of latest game
     fig,ax = plotShots(latest_game_shots, latest_game)
 
