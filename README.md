@@ -15,10 +15,12 @@ Test it on your desired team(EPL, La Liga, Ligue 1, Bundesliga, Seria A, RFPL ):
     - `python fetch_main.py --t "Chelsea" --s "2022" `  
 
 You also get a plot at the end, of the latest fixture the team played.  
-![Chelsea vs Manchester United](https://github.com/sandeshpokhrel54/Xpoints/blob/main/Xg.png)
+![Chelsea vs Manchester United](https://github.com/sandeshpokhrel54/Xpoints/blob/main/Xg.png)  
+
+To get the plots of all the matches of the latest gameweek; latest_gw.py file can be used.
 
 
 TODO:
-- currently fetches and calculates for all the games of a particular season; try for latest matchweek of all teams
+- remove redundancy in latest_gw.py
 - maybe a bot to tweet xpoints after each game
 
