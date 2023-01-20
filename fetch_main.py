@@ -105,6 +105,7 @@ if __name__ == "__main__":
 
     # print(allGames)    
     latest_game, latest_game_shots, homexp, awayxp, homesd, awaysd  = parse_all_games(allGames)
+    print(latest_game, latest_game_shots)
     #plot shots of latest game
     fig,ax = plotShots(latest_game_shots, latest_game)
 

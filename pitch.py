@@ -37,9 +37,9 @@ def plotShots(shots, game='unknown'):
         y = y * pitch_width
         xg = shot[0]
 
-        circle_size = math.sqrt(float(xg)) * 3
+        circle_size = math.sqrt(float(xg)) * 2.5
 
-        shot_color = 'red' if shot[3] == 'Goal' else 'blue'
+        shot_color = 'yellow' if shot[3] == 'Goal' else 'black'
         opacity = 1 if shot[3] == 'Goal' else 0.7
 
         shotCircle = plt.Circle((x,y), circle_size, alpha= opacity, color=shot_color)
