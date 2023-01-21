@@ -21,6 +21,6 @@ To get the plots of all the matches of the latest gameweek; latest_gw.py file ca
 
 
 TODO:
-- remove redundancy in latest_gw.py
+- add scoreline and xg score in plot
 - maybe a bot to tweet xpoints after each game
 
