@@ -63,14 +63,23 @@ if __name__ == "__main__":
     season = '2022'
     league = 'epl' 
 
+    games =[]
     for team in team_list:
+
 
         results = loop.run_until_complete(team_results_latest(team_name=team, season=season))
 
         latest_results = results[-1]
+        latest_game = latest_results['h']['title'] + ' vs ' + latest_results['a']['title']
+        print(latest_game)
         match_id = latest_results['id']
         print(match_id)
 
+        if latest_game in games:
+            continue
+        else:
+            games.append(latest_game)
+    
         all_shots_latest_game = loop.run_until_complete(get_match_shots(match_id=match_id))
         # print(all_shots_latest_game)
 
@@ -91,11 +100,6 @@ if __name__ == "__main__":
 
         #calculate xps and deviation of xgs
         homexp, awayxp, homesd, awaysd = calcXPoints(flo_value_0, flo_value_1)
-
-        latest_game = latest_results['h']['title'] + ' vs ' + latest_results['a']['title']
-        print(latest_game)
-
-
         latest_shots = [home_shots, away_shots]
         print(homexp, awayxp, homesd, awaysd)
         # print(latest_shots)
