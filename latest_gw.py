@@ -11,7 +11,6 @@ import sys
 from pitch import plotShots
 
 
-#remove two plots per game bug
 #show xg score and actual score in plot
 #save plot as png;
 # tweet?
