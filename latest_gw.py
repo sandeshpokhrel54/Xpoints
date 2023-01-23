@@ -11,7 +11,9 @@ import sys
 from pitch import plotShots
 
 
-#show xg score and actual score in plot, legend of shot map
+
+#legend of shot map
+#prettify
 #save all-plots as png;
 # tweet?
 
@@ -46,7 +48,7 @@ if __name__ == "__main__":
 
     ap = argparse.ArgumentParser()
     ap.add_argument("-s", "--season", default="2022", help="season")
-    ap.add_argument("-t", "--team", default="Chelsea", help="team name")
+    # ap.add_argument("-t", "--team", default="Chelsea", help="team name")
     ap.add_argument("-l", "--league", default="epl", help='League name')
     args = vars(ap.parse_args())
 
@@ -69,7 +71,11 @@ if __name__ == "__main__":
         results = loop.run_until_complete(team_results_latest(team_name=team, season=season))
 
         latest_results = results[-1]
+
+        scoreline = latest_results['goals']['h'] + ' - ' + latest_results['goals']['a']
         latest_game = latest_results['h']['title'] + ' vs ' + latest_results['a']['title']
+        xgs = latest_results['xG']['h'] + ' - ' + latest_results['xG']['a']
+
         print(latest_game)
         match_id = latest_results['id']
         print(match_id)
@@ -93,6 +99,7 @@ if __name__ == "__main__":
 
         home_xg = [home_shot[0] for home_shot in home_shots]
         away_xg = [away_shot[0] for away_shot in away_shots]
+
         #converting values to float
         flo_value_0 = [float(i) for i in home_xg] 
         flo_value_1 = [float(i) for i in away_xg]
@@ -104,4 +111,5 @@ if __name__ == "__main__":
         # print(latest_shots)
 
         # #plot shots of latest game
-        fig,ax = plotShots(latest_shots, latest_game)
+        matchTitle = latest_game + '\n' + scoreline + '\n' + xgs
+        fig,ax = plotShots(latest_shots, matchTitle)

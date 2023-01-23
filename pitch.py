@@ -3,6 +3,7 @@ From friends of tracking repo
 Created on Wed Mar 25 17:32:00 2020
 @author: davsu428
 """
+#the pitch is drawn with the help of friends of tracking's repo
 import matplotlib.pyplot as plt
 from matplotlib.patches import Arc
 import math
@@ -45,6 +46,7 @@ def plotShots(shots, game='unknown'):
         shotCircle = plt.Circle((x,y), circle_size, alpha= opacity, color=shot_color)
         ax.add_patch(shotCircle)
         
+
     ax.set_title(game)
     fig.set_facecolor('#71A92C')
     plt.show()
