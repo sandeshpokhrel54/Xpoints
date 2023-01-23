@@ -11,8 +11,8 @@ import sys
 from pitch import plotShots
 
 
-#show xg score and actual score in plot
-#save plot as png;
+#show xg score and actual score in plot, legend of shot map
+#save all-plots as png;
 # tweet?
 
 

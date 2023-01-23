@@ -15,7 +15,7 @@ def plotShots(shots, game='unknown'):
 
     pitch_width = 80
     pitch_height = 120
-    fig,ax = createPitch(pitch_height, pitch_width, 'yards', 'green')
+    fig,ax = createPitch(pitch_height, pitch_width, 'yards', 'white')
 
     #unsqueeze list
     home_shots = shots[0]
@@ -39,14 +39,14 @@ def plotShots(shots, game='unknown'):
 
         circle_size = math.sqrt(float(xg)) * 2.5
 
-        shot_color = 'yellow' if shot[3] == 'Goal' else 'black'
+        shot_color = '#880808' if shot[3] == 'Goal' else '#000080'
         opacity = 1 if shot[3] == 'Goal' else 0.7
 
         shotCircle = plt.Circle((x,y), circle_size, alpha= opacity, color=shot_color)
         ax.add_patch(shotCircle)
         
     ax.set_title(game)
-    fig.set_facecolor('gray')
+    fig.set_facecolor('#71A92C')
     plt.show()
 
     return fig,ax
