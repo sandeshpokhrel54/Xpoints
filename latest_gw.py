@@ -109,6 +109,9 @@ if __name__ == "__main__":
         print(homexp, awayxp, homesd, awaysd)
         # print(latest_shots)
 
+        hxp = str(homexp)
+        axp = str(awayxp)
+        xps = 'xPs: ' + hxp + ' - ' + axp
         # #plot shots of latest game
-        matchTitle = latest_game + '\n' + scoreline + '\n' + xgs
+        matchTitle = latest_game + '\n' + scoreline + '\n' + xgs + '\n' +xps
         fig,ax = plotShots(latest_shots, matchTitle)
