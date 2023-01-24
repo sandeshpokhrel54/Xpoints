@@ -31,6 +31,7 @@ You also get a plot at the end, of the latest fixture the team played.
     - `python latest_gw.py --l "la liga" --s "2022" `  
  
  One by one plot of the latest games played by each team in the league of the given season in matplotlib.  
+![One of the fixtures of last week(epl)](https://github.com/sandeshpokhrel54/Xpoints/blob/main/latest.png)  
   
 TODO:  
 - prettify and add legends in plot  

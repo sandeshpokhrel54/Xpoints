@@ -6,6 +6,7 @@ Created on Wed Mar 25 17:32:00 2020
 #the pitch is drawn with the help of friends of tracking's repo
 import matplotlib.pyplot as plt
 from matplotlib.patches import Arc
+from matplotlib.lines import Line2D
 import math
 
 
@@ -43,12 +44,17 @@ def plotShots(shots, game='unknown'):
         shot_color = '#880808' if shot[3] == 'Goal' else '#000080'
         opacity = 1 if shot[3] == 'Goal' else 0.7
 
-        shotCircle = plt.Circle((x,y), circle_size, alpha= opacity, color=shot_color)
+        shotCircle = plt.Circle((x,y), circle_size, alpha= opacity,  facecolor=shot_color, edgecolor="black")
         ax.add_patch(shotCircle)
         
 
     ax.set_title(game)
     fig.set_facecolor('#71A92C')
+    #custom legend then I guess
+    custom_circles =[Line2D([0],[0], color='w', marker='o', markerfacecolor='#880808', label='Goal', markersize=15),
+                    Line2D([0],[0], color='w', marker='o', markerfacecolor='#000080', label='Shot', markersize=15)]
+
+    ax.legend(handles=custom_circles, loc='lower right')
     plt.show()
 
     return fig,ax

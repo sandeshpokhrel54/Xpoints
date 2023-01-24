@@ -12,7 +12,7 @@ from pitch import plotShots
 
 
 
-#legend of shot map
+
 #prettify
 #save all-plots as png;
 # tweet?
@@ -72,10 +72,9 @@ if __name__ == "__main__":
 
         latest_results = results[-1]
 
-        scoreline = latest_results['goals']['h'] + ' - ' + latest_results['goals']['a']
-        latest_game = latest_results['h']['title'] + ' vs ' + latest_results['a']['title']
-        xgs = latest_results['xG']['h'] + ' - ' + latest_results['xG']['a']
-
+        scoreline = 'Score: ' +latest_results['goals']['h'] + ' - ' + latest_results['goals']['a']
+        latest_game =  latest_results['h']['title'] + ' vs ' + latest_results['a']['title']
+        xgs = 'xGs: ' + latest_results['xG']['h'] + ' - ' + latest_results['xG']['a']
         print(latest_game)
         match_id = latest_results['id']
         print(match_id)
