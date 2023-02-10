@@ -34,5 +34,5 @@ You also get a plot at the end, of the latest fixture the team played.
 ![One of the fixtures of last week(epl)](https://github.com/sandeshpokhrel54/Xpoints/blob/main/xPs.png)  
   
 TODO:  
-- maybe a bot to tweet xpoints after each game
+- maybe a bot to tweet xpoints after each game (Thanks to Elon Musk, this is not happening anytime soon).
 
